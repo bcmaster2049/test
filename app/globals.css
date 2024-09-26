@@ -1,0 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.translate-x-50 {
+  transform: translateX(-12px);
+}
