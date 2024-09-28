@@ -3,6 +3,7 @@ import WebApp from "@twa-dev/sdk";
 import { initUtils } from '@tma.js/sdk';
 import React, { useEffect, useState } from "react";
 import { generateInviteCode } from "./utils/encode_decode";
+import PopoverCom from './components/Popover';
 
 const API_BASE_URL = process.env.NODE_ENV === 'development' ? 'http://139.177.202.65:6543' : '/api';
 
@@ -28,6 +29,7 @@ const userRegistrations: UserRegistration[] = [
 export default function Home() {
   const [tokenToTake, setTokenToTake] = useState(0);
   const [btcToTake, setBtcToTake] = useState(0);
+  const [btcProgress, setBtcProgress] = useState(0);
   const [userId, setUserId] = useState<string | null>(null);
   const [registerYears, setRegisterYears] = useState(0);
   const [recommender, setRecommender] = useState<string>("0");
@@ -51,7 +53,6 @@ export default function Home() {
       // setUserId("1390026482");
       // setRegisterYears(4);
 
-      // const recommender = "0";
       if (WebApp.initDataUnsafe.start_param) {
         setRecommender(WebApp.initDataUnsafe.start_param);
       }
@@ -71,6 +72,9 @@ export default function Home() {
         setTokenToTake(response.token_score);
         const btcScore = response.btc_score;
         setBtcToTake(btcScore || 3);
+        const btcProgress = response.btc_progress;
+        setBtcProgress(btcProgress);
+
         setUserToken(response.token);
         console.log("response", response);
 
@@ -107,7 +111,6 @@ export default function Home() {
 
     initializeApp();
     fetchData();
-    
   }, [userId, registerYears, recommender]);
 
   useEffect(() => {
@@ -175,9 +178,6 @@ export default function Home() {
         tryBrowser: false
       }
     )
-    // utils.openTelegramLink(
-    //   `https://t.me/share/url?url=https://t.me/ppppooogg_bot/pdd123?startapp=${response.referral_code}`
-    // );
   }
 
   return (
@@ -185,23 +185,49 @@ export default function Home() {
       <img className='w-32 h-28 mx-auto' src="/images/final.webp" alt="" />
       
       {/* Referral Reward group */}
-      {btcToTake && <div className="border-2 border-gray-700 rounded-lg p-4">
+      {btcToTake && <div className="border-2 border-gray-700 rounded-lg p-4 relative">
         <h3 className='text-white text-center mb-4'>Referral Reward</h3>
-        <div className="flex justify-between items-center">
-          <img className="w-20" src={`/images/${firstImage}`} alt="" />
-          <img className="w-[32px]" src="/images/mul.svg" alt="" />
-          <img className="w-20" src={`/images/${thirdValue}.svg`} alt="" />
-        </div>
+        {btcProgress < 0.99 ? (
+          <div className='w-full border border-teal-600 rounded p-1'>
+            <div className='p-2 bg-lime-300 rounded-sm relative'>
+              <div className='w-20 bg-lime-500 h-4 rounded-e-lg' style={{ width: btcProgress * 100 + '%' }}></div>
+              <span className='absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-black text-sm'>
+                {(btcProgress * 100).toFixed(6)}%
+              </span>
+            </div>
+          </div>
+        ): (
+            <div>
+              <div className='w-full border border-teal-600 rounded p-1'>
+                <div className='p-2 bg-lime-300 rounded-sm relative'>
+                  <div className='w-20 bg-lime-500 h-4 rounded-e-lg' style={{ width: btcProgress * 100 + '%' }}></div>
+                  <span className='absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-black text-sm'>
+                    {(btcProgress * 100).toFixed(6)}%
+                  </span>
+                </div>
+              </div>
+              <div className="flex justify-between items-center ">
+                <img className="w-20" src={`/images/${firstImage}`} alt="" />
+                <img className="w-[32px]" src="/images/mul.svg" alt="" />
+                <img className="w-20" src={`/images/${thirdValue}.svg`} alt="" />
+                <PopoverCom headImg={firstImage} firstLine="Now keep on infecting!" secondLine="When the infection progress reaches 100%, you will become the ultimate bio-organism and can obtain a large amount of mutated $VIRUS or 1 ETH!">
+                  <img className="w-12" src="/images/Infomation.svg" alt="" />
+                </PopoverCom>
+              </div>
+            </div>
+        )}
       </div>}
 
       {/* Token Reward group */}
-      <div className="border-2 border-gray-700 rounded-lg p-4">
+      <div className="border-2 border-gray-700 rounded-lg p-4 relative">
         <p className="text-white text-center mb-4">Token Reward</p>
         <p className="text-white text-center">
           <span className="text-lime-600">{tokenToTake}</span> $VIRUS
         </p>
+        <PopoverCom headImg={firstImage} firstLine="Attention!" secondLine="Continue to spread the infection. As more and more people get infected, you will gain more $VIRUS." hideHeaderImg={false}>
+          <img className="w-12" src="/images/Infomation.svg" alt="" />
+        </PopoverCom>
       </div>
-
       <div className="bg-lime-500 text-black text-center mt-auto h-10 leading-10 rounded-lg" onClick={handleInvite}>
         Infect Others
       </div>

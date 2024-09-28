@@ -1,0 +1,32 @@
+/* Popover.module.css */
+.popoverWrapper {
+  position: relative;
+  display: inline-block; /* 或根据需要进行调整 */
+  z-index: 999;
+}
+
+.popoverContent {
+  position: absolute;
+  z-index: 1000;
+  top: -110%;
+  left: -316%;
+  transform: translateX(-50%);
+  background-color: #fff;
+  border: 1px solid #d9d9d9;
+  padding: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  width: 260px;
+  background: black;
+  color: white;
+  font-size: 14px;
+}
+
+.posleft {
+  top: -110%;
+  left: -316%;
+}
+
+.posright {
+  top: -110%;
+  left: 116%;
+}

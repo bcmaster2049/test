@@ -5,3 +5,14 @@
 .translate-x-50 {
   transform: translateX(-12px);
 }
+
+.ant-popover-inner {
+  background-color: #000000 !important;
+  border: 1px solid #ffffff;
+}
+
+.pos-right {
+  position: absolute;
+  right: -30px;
+  top: 40%;
+}
