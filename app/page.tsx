@@ -9,6 +9,7 @@ const API_BASE_URL = process.env.NODE_ENV === 'development' ? 'http://139.177.20
 
 console.log("env 0", process.env.NODE_ENV);
 
+
 interface UserRegistration {
   id: number;
   registrationDate: string;  // format: "YYYY.MM"
