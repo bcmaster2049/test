@@ -2,28 +2,26 @@ import React, { useState } from 'react';
 import { Popover } from 'antd';
 
 interface IPopoverProps {
-  children: React.ReactNode;
+  children?: React.ReactNode;
   headImg: string;
   firstLine: string;
   secondLine: string;
   position?: string;
   hideHeaderImg?: boolean;
+  icon?: React.ReactNode; // New prop for custom icon
 }
 
-const App: React.FC<IPopoverProps> = ({ headImg, firstLine, secondLine, hideHeaderImg=true }) => {
+const PopoverCom: React.FC<IPopoverProps> = ({ 
+  headImg, 
+  firstLine, 
+  secondLine, 
+  hideHeaderImg=true, 
+  icon 
+}) => {
   const [open, setOpen] = useState(false);
 
-  const handleOpenChange = () => {
-    setOpen(!open);
-  };
-
-  const handleClick = (e: React.MouseEvent<HTMLImageElement> | React.TouchEvent<HTMLImageElement>) => {
-    console.log('handleClick');
-    console.log('e', e);
-    e.preventDefault();
-    e.stopPropagation();
-    setOpen(!open);
-    console.log('open', open);
+  const handleOpenChange = (newOpen: boolean) => {
+    setOpen(newOpen);
   };
 
   const content = (
@@ -42,16 +40,17 @@ const App: React.FC<IPopoverProps> = ({ headImg, firstLine, secondLine, hideHead
       trigger="click"
       overlayStyle={{ zIndex: 9999 }}
     >
-      <img 
-        className="w-6 pos-right cursor-pointer" 
-        src="/images/Infomation.svg" 
-        alt="Information Icon" 
-        onClick={handleClick}
-        onTouchStart={handleClick}
-        style={{ touchAction: 'manipulation' }}
-      />
+      {icon ? (
+        icon
+      ) : (
+        <img 
+          className="w-6 pos-right cursor-pointer" 
+          src="/images/Infomation.svg" 
+          alt="Information Icon" 
+        />
+      )}
     </Popover>
   );
 };
 
-export default App;
+export default PopoverCom;
