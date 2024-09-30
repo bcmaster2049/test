@@ -180,23 +180,32 @@ export default function Home() {
     )
   }
 
+  function handleChannel() {
+    const utils = initUtils();
+    utils.openLink('https://t.me/virusgamestop', {
+      tryInstantView: true,
+      tryBrowser: false
+    });
+  }
+
   return (
-    <div className="bg-black h-screen px-8 py-10 flex flex-col gap-8">
-      <img className='w-32 h-28 mx-auto' src="/images/final.webp" alt="" />
-      
-      {/* Referral Reward group */}
-      {btcToTake && <div className="border-2 border-gray-700 rounded-lg p-4 relative">
-        <h3 className='text-white text-center mb-4'>Referral Reward</h3>
-        {btcProgress < 0.99 ? (
-          <div className='w-full border border-teal-600 rounded p-1'>
-            <div className='p-2 bg-lime-300 rounded-sm relative'>
-              <div className='w-20 bg-lime-500 h-4 rounded-e-lg' style={{ width: btcProgress * 100 + '%' }}></div>
-              <span className='absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-black text-sm'>
-                {(btcProgress * 100).toFixed(6)}%
-              </span>
+    <div className="bg-black min-h-screen px-4 sm:px-8 py-6 sm:py-10 flex flex-col justify-between max-w-md mx-auto">
+      <div className="flex flex-col gap-4 sm:gap-6">
+        <img className='w-32 h-28 mx-auto' src="/images/final.webp" alt="" />
+        
+        {/* Referral Reward group */}
+        {btcToTake && <div className="border-2 border-gray-700 rounded-lg p-4 relative">
+          <h3 className='text-white text-center mb-4'>Referral Reward</h3>
+          {btcProgress < 0.99 ? (
+            <div className='w-full border border-teal-600 rounded p-1'>
+              <div className='p-2 bg-lime-300 rounded-sm relative'>
+                <div className='w-20 bg-lime-500 h-4 rounded-e-lg' style={{ width: btcProgress * 100 + '%' }}></div>
+                <span className='absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-black text-sm'>
+                  {(btcProgress * 100).toFixed(6)}%
+                </span>
+              </div>
             </div>
-          </div>
-        ): (
+          ): (
             <div>
               <div className='w-full border border-teal-600 rounded p-1'>
                 <div className='p-2 bg-lime-300 rounded-sm relative'>
@@ -215,21 +224,33 @@ export default function Home() {
                 </PopoverCom>
               </div>
             </div>
-        )}
-      </div>}
+          )}
+        </div>}
 
-      {/* Token Reward group */}
-      <div className="border-2 border-gray-700 rounded-lg p-4 relative">
-        <p className="text-white text-center mb-4">Token Reward</p>
-        <p className="text-white text-center">
-          <span className="text-lime-600">{tokenToTake}</span> $VIRUS
-        </p>
-        <PopoverCom headImg={firstImage} firstLine="Attention!" secondLine="Continue to spread the infection. As more and more people get infected, you will gain more $VIRUS." hideHeaderImg={false}>
-          <img className="w-12" src="/images/Infomation.svg" alt="" />
-        </PopoverCom>
+        {/* Token Reward group */}
+        <div className="border-2 border-gray-700 rounded-lg p-4 relative">
+          <p className="text-white text-center mb-4">Token Reward</p>
+          <p className="text-white text-center">
+            <span className="text-lime-600">{tokenToTake}</span> $VIRUS
+          </p>
+          <PopoverCom 
+            headImg={firstImage} 
+            firstLine="Attention!" 
+            secondLine="Continue to spread the infection. As more and more people get infected, you will gain more $VIRUS."
+            hideHeaderImg={false}
+          >
+            <img className="w-12" src="/images/Infomation.svg" alt="" />
+          </PopoverCom>
+        </div>
       </div>
-      <div className="bg-lime-500 text-black text-center mt-auto h-10 leading-10 rounded-lg" onClick={handleInvite}>
-        Infect Others
+      
+      <div className="mt-4 sm:mt-6 space-y-2 sm:space-y-4">
+        <div className="bg-lime-500 text-black text-center h-10 leading-10 rounded-lg" onClick={handleChannel}>
+          Join Telegram Channel
+        </div>
+        <div className="bg-lime-500 text-black text-center h-10 leading-10 rounded-lg" onClick={handleInvite}>
+          Infect Others
+        </div>
       </div>
     </div>
   );
