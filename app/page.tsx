@@ -78,8 +78,9 @@ export default function Home() {
         setBtcProgress(btcProgress);
 
         setUserToken(response.token);
-        setRecommendations(response.recommendations);
         console.log("response", response);
+
+        setRecommendations(response.recommendations);
 
         // Call /api/recommend after receiving the response from /api/user/score
         await callRecommendAPI(response.token);
@@ -118,7 +119,7 @@ export default function Home() {
 
   useEffect(() => {
     const dealBtcToTake = async() => {
-      console.log("dealBtcToTake - btcToTake", btcToTake)
+      // console.log("dealBtcToTake - btcToTake", btcToTake)
       const n = btcToTake;
       const selftFirstImage = `v${getMagnitude(n)}.svg`
       const selfThirdValue = Math.floor(n / (10 ** (getMagnitude(n) - 1)))
@@ -222,9 +223,7 @@ export default function Home() {
         // <div className="border-2 border-gray-700 rounded-lg  py-4 px-6 sm:px-8 relative">
           <div className="border-2 border-gray-700 rounded-lg py-4 px-4 sm:px-6 relative mx-2 sm:mx-4">
           <h3 className='text-white text-center mb-4'>You Can Withdraw When You Get 1 ETH</h3>
-          {recommendations > 0 && (
-            <div className="text-white-500 mt-1 text-xs">You Have Infected {recommendations} people</div>
-          )}
+          
           {btcProgress < 0.99 ? (
             <div className='w-full border border-teal-600 rounded p-1'>
               <div className='p-2 bg-lime-300 rounded-sm relative'>
@@ -274,8 +273,13 @@ export default function Home() {
       </div>
       
       <div className="mt-4 sm:mt-6 space-y-2 sm:space-y-4">
+        {/* {Number(recommendations) > 0 && ( */}
+        <p className="text-white text-center mb-4">
+          You Have Infected <span className="text-lime-600">{recommendations}</span> people
+        </p>
+        {/* )} */}
         <div className="bg-lime-500 text-black text-center h-10 leading-10 rounded-lg" onClick={handleInvite}>
-          Infect Others
+          Infect More People
         </div>
 
         {/* Follow Twitter and Join Telegram Channel buttons */}
