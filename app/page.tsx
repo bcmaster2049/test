@@ -173,7 +173,7 @@ export default function Home() {
     }
     const response = await inviteResponse.json();
     const utils = initUtils();
-    utils.openLink(`https://t.me/share/url?url=https://t.me/huhthevirus_bot/virus?startapp=${encodeURIComponent(`${response.referral_code}\n\nInfect as many people as possible.`)}`,
+    utils.openLink(`https://t.me/share/url?url=https://t.me/TheVirus_bot/TheVirus?startapp=${encodeURIComponent(`${response.referral_code}\n\nInfect as many people as possible.`)}`,
       {
         tryInstantView: true,
         tryBrowser: false
